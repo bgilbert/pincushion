@@ -1,0 +1,53 @@
+name: Rust
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        rust:
+          - stable
+          - beta
+        experimental: [false]
+        pinned: [false]
+        include:
+          - rust: nightly
+            experimental: true
+            pinned: false
+          - rust: 1.49.0
+            experimental: false
+            pinned: true
+    name: Tests (${{ matrix.rust }})
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          components: rustfmt, clippy
+          default: true
+      - name: Build
+        run: cargo build
+        working-directory: rs
+      - name: Test
+        run: cargo test --verbose --all
+        working-directory: rs
+      - name: rustfmt check
+        run: cargo fmt -- --check -l
+        working-directory: rs
+        if: ${{ matrix.pinned }}
+      - name: Clippy
+        run: cargo clippy -- -D warnings
+        working-directory: rs
+        if: ${{ matrix.pinned }}
