@@ -1,0 +1,7 @@
+FROM fedora:33
+RUN dnf install -y cargo
+COPY . /src
+RUN cd /src && cargo build --release
+
+FROM fedora:33
+COPY --from=0 /src/target/release/input /srv/

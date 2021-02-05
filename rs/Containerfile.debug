@@ -1,0 +1,2 @@
+FROM fedora:33
+COPY target/debug/input /srv/
