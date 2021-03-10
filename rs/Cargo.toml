@@ -10,7 +10,7 @@ path = "src/bin/input/main.rs"
 
 [dependencies]
 input-linux = "0.4.0"
-nats = "0.9.4"
+nats = "0.9.6"
 rmp = "0.8.10"
 rmp-serde = "0.15.4"
 serde = { version = "1.0.123", features = ["derive"] }
