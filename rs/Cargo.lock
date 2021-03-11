@@ -265,10 +265,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "nats"
-version = "0.9.4"
+name = "memchr"
+version = "2.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3845d2bb3e0e01a6074589b5789ec1079253418356275ae437235683085a8848"
+checksum = "0ee1c47aaa256ecabcaea351eae4a9b01ef39ed810004e298d2511ed284b1525"
+
+[[package]]
+name = "nats"
+version = "0.9.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cd1526e54be8c913ff75d5c60585e238c7bf0d1d2b2167848d3fb9a722c176f8"
 dependencies = [
  "base64",
  "base64-url",
@@ -278,6 +284,7 @@ dependencies = [
  "json",
  "libc",
  "log",
+ "memchr",
  "nkeys",
  "nuid",
  "once_cell",
